@@ -11,6 +11,8 @@ except ImportError:
 
 # Get the token
 TOKEN = os.getenv("DISCORD_TOKEN")
+if not TOKEN:
+    print("Error: DISCORD_TOKEN is not set!")
 
 # Set up bot
 intents = discord.Intents.default()
