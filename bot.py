@@ -10,6 +10,9 @@ except ImportError:
     pass  # Skip if python-dotenv is not installed (e.g., on Railway)
 
 # Get the token
+
+print("Environment Variables:", dict(os.environ))
+
 TOKEN = os.getenv("DISCORD_TOKEN")
 if not TOKEN:
     print("Error: DISCORD_TOKEN is not set!")
