@@ -1,11 +1,13 @@
 import discord
 from discord.ext import commands
 import os
-from keep_alive import keep_alive
 
-# Only call keep_alive() if running locally (optional, see Step 2)
-if os.getenv("RAILWAY_ENVIRONMENT") is None:
-    keep_alive()
+# Load .env file locally if available
+try:
+    from dotenv import load_dotenv
+    load_dotenv()
+except ImportError:
+    pass  # Skip if python-dotenv is not installed (e.g., on Railway)
 
 # Get the token
 TOKEN = os.getenv("DISCORD_TOKEN")
@@ -29,6 +31,7 @@ async def load_cogs():
 @bot.event
 async def on_ready():
     print(f'Logged in as {bot.user}')
+    await bot.change_presence(status=discord.Status.online, activity=discord.Game("Party Pets!"))
     await load_cogs()
     print(f'Loaded cogs: {bot.cogs}')
     for cog_name in bot.cogs:
