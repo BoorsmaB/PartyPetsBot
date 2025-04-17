@@ -1,20 +1,18 @@
 import discord
 from discord.ext import commands
 import os
-from dotenv import load_dotenv
 from keep_alive import keep_alive
 
-keep_alive()
-
-# Load environment variables from .env
-load_dotenv()
+# Only call keep_alive() if running locally (optional, see Step 2)
+if os.getenv("RAILWAY_ENVIRONMENT") is None:
+    keep_alive()
 
 # Get the token
 TOKEN = os.getenv("DISCORD_TOKEN")
 
 # Set up bot
 intents = discord.Intents.default()
-intents.message_content = True  # Required to read messages
+intents.message_content = True
 bot = commands.Bot(command_prefix="?", intents=intents)
 
 # Function to load cogs
